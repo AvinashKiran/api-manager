@@ -9,15 +9,24 @@
 import Foundation
 import APIManager
 
-class JSON: APIReturnable {
-    let rawDictionary: [String: Any]
+final class JSON: APIReturnable {
+    var rawDictionary = [String: Any]()
 
-    required init(from: Data) throws {
-        let json = try JSONSerialization.jsonObject(with: from, options: [])
-        if let json = json as? [String: Any] {
-            rawDictionary = json
-        } else {
-            throw NSError(domain: "Conversion Error. Failed to convert data to json dictionary.", code: 1, userInfo: nil)
-        }
-    }
+    enum CodingKeys: CodingKey { }
+
+//    func decode(fromd data: Data) throws -> Self {
+//        return try JSONDecoder().decode(JSON.self, from: data) as Self.self
+//    }
+
+
+//    static func decode(from data: Data) throws -> JSON {
+//        let json = try JSONSerialization.jsonObject(with: data, options: [])
+//        if let json = json as? [String: Any] {
+//            let j = JSON()
+//            j.rawDictionary = json
+//            return j
+//        } else {
+//            throw NSError(domain: "Conversion Error. Failed to convert data to json dictionary.", code: 1, userInfo: nil)
+//        }
+//    }
 }

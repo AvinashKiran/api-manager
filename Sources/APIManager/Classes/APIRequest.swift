@@ -101,8 +101,8 @@ open class APIRequest<Service: APIService, ReturnType: APIReturnable> {
         if let response = response as? HTTPURLResponse, let data = data {
             do {
                 try Service.validate(statusCode: response.statusCode)
-                let returnValue = try ReturnType.init(from: data)
-                self.success?(returnValue)
+                let returnValue = try ReturnType.decode(from: data)
+                self.success?(returnValue as! ReturnType)
                 return
             } catch {
                 self.failure?(error)
